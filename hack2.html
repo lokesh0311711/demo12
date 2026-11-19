@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HackMate – Find Your Team. Build Your Idea. Win Together.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8fafc;--bg2:#eef2ff;--surface:#fff;--text:#0f172a;--muted:#475569;--line:#e2e8f0;--purple:#7c3aed;--blue:#3b82f6;--cyan:#0891b2;--chip:rgba(124,58,237,.1);--chipText:#6d28d9;--heroA:#f5f3ff;--heroB:#fff;--heroC:#e0f2fe;--header:rgba(248,250,252,.88);--field:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080b1a;--bg2:#0d1226;--surface:rgba(255,255,255,.05);--text:#f1f5f9;--muted:#94a3b8;--line:rgba(255,255,255,.12);--cyan:#22d3ee;--chip:rgba(124,58,237,.25);--chipText:#c4b5fd;--heroA:#080b1a;--heroB:#0d1226;--heroC:#1a1040;--header:rgba(8,11,26,.88);--field:#0d1226;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#080b1a;--bg2:#0d1226;--surface:rgba(255,255,255,.05);--text:#f1f5f9;--muted:#94a3b8;--line:rgba(255,255,255,.12);--cyan:#22d3ee;--chip:rgba(124,58,237,.25);--chipText:#c4b5fd;--heroA:#080b1a;--heroB:#0d1226;--heroC:#1a1040;--header:rgba(8,11,26,.88);--field:#0d1226;color-scheme:dark}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html{height:100%;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--header);z-index:60}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--header);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:12px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.logo i{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-style:normal}
+nav{display:flex;gap:2px;align-items:center;flex-wrap:wrap}
+nav a.l{padding:6px 12px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted)}
+nav a.l:hover,nav a.l.on{color:var(--text);background:var(--chip)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font:600 14px/1 "Plus Jakarta Sans",system-ui,sans-serif;border:1px solid var(--line);color:var(--text);background:transparent;cursor:pointer}
+.btn:hover{background:var(--chip)}
+.btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.btn.p{background:linear-gradient(90deg,var(--purple),var(--blue));color:#fff;border-color:transparent}.btn.p:hover{opacity:.9}
+.btn.sm{padding:8px 16px;font-size:13px}.tog{width:38px;height:38px;padding:0;justify-content:center}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--heroA),var(--heroB) 50%,var(--heroC));padding:72px 0 80px}
+#bin{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hgrid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media (max-width:860px){.hgrid{grid-template-columns:1fr}.hero{padding:48px 0 56px}}
+.tag{font-size:14px;font-weight:600;color:var(--purple)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag{color:var(--cyan)}}
+:root[data-theme="dark"] .tag{color:var(--cyan)}
+h1{font-size:clamp(36px,6vw,62px);line-height:1.08;letter-spacing:-.02em;margin:14px 0 18px;font-weight:800}
+.sub{font-size:18px;color:var(--muted);max-width:540px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.panel,.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card h3,.panel h3{margin:0 0 6px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.chip{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--chip);color:var(--chipText);font-size:12px;font-weight:600;border:0}
+button.chip{cursor:pointer;font-family:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.slots{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+.slots li{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border:1px solid var(--line);border-radius:14px;font-size:14px;font-weight:500}
+.slots li.open{border:1px dashed var(--purple);background:var(--chip)}.ok{color:#10b981;font-weight:700}
+section.s{padding:56px 0}section.alt{background:var(--bg2)}
+h2{font-size:clamp(26px,4vw,36px);letter-spacing:-.01em;margin:0 0 10px;font-weight:800}
+.lead{color:var(--muted);max-width:640px;margin:0 0 28px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:860px){.grid3,.grid2{grid-template-columns:1fr}}
+.num{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--purple);color:#fff;font-weight:700;font-size:14px;margin-bottom:12px}
+label{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
+input,select,textarea{width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--field);color:var(--text);font:inherit;font-size:14px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.fgrid .full{grid-column:1/-1}
+@media (max-width:640px){.fgrid{grid-template-columns:1fr}}
+.meta{font-size:13px;color:var(--muted);margin:2px 0}
+.bar2{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0}.bar2 span{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+.empty{padding:28px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);text-align:center}
+.banner{background:var(--chip);color:var(--chipText);padding:10px 20px;font-size:14px;text-align:center}
+.sug{font-size:13px;color:var(--muted);margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--text);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;z-index:80;max-width:90%}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="#home"><i>H</i>HackMate</a>
+  <nav aria-label="Main">
+    <a class="l" href="#home">Home</a><a class="l" href="#teammates">Find Teammates</a><a class="l" href="#teams">Explore Teams</a><a class="l" href="#hackathons">Hackathons</a><a class="l" href="#about">About</a>
+    <button class="btn tog" id="theme" aria-label="Switch between light and dark mode">◐</button>
+    <span class="chip" id="who" hidden></span><a class="btn p sm" href="#profile">My Profile</a>
+  </nav>
+</div></header>
+<div class="banner" id="banner" hidden></div>
+
+<main>
+<!-- HOME -->
+<div id="p-home">
+<section class="hero"><canvas id="bin" aria-hidden="true"></canvas>
+  <div class="wrap hgrid">
+    <div>
+      <div class="tag">Find Your Team. Build Your Idea. Win Together.</div>
+      <h1>Your Next Hackathon Team Starts Here.</h1>
+      <p class="sub">Connect with talented students, discover compatible teammates, and build your dream hackathon team.</p>
+      <div class="cta"><a class="btn p" href="#teammates">Find Teammates</a><a class="btn" href="#teams">Create Your Team</a><a class="btn" href="#hackathons">Explore Hackathons</a></div>
+    </div>
+    <div class="panel" aria-label="Example team">
+      <div class="row"><h3>Team Alpha</h3><span class="chip">3 of 4 filled</span></div>
+      <p class="meta">Example: an AI hackathon team missing a designer</p>
+      <ul class="slots"><li>Python / Backend <span class="ok">✓</span></li><li>AI/ML Developer <span class="ok">✓</span></li><li>Frontend Developer <span class="ok">✓</span></li><li class="open">UI/UX Designer <span class="chip">Open spot</span></li></ul>
+    </div>
+  </div>
+</section>
+<section class="s"><div class="wrap"><h2>How HackMate works</h2><p class="lead">Three steps from “I have no team” to building together.</p>
+  <div class="grid3">
+    <div class="card"><span class="num">1</span><h3>Build your profile</h3><p>Add your skills, preferred role and city on the My Profile page.</p></div>
+    <div class="card"><span class="num">2</span><h3>Find or form a team</h3><p>Search students, browse teams with open spots, or create your own and list what you need.</p></div>
+    <div class="card"><span class="num">3</span><h3>Pick a hackathon</h3><p>Browse listed events by category and deadline, then go for it together.</p></div>
+  </div></div></section>
+<section class="s alt"><div class="wrap"><h2>Why choose HackMate?</h2><p class="lead">Nobody should miss a hackathon simply because they cannot find teammates.</p>
+  <div class="grid3">
+    <div class="card"><h3>Skill gap matching</h3><p>Each team lists what it needs. HackMate scores students by how many of those needs they cover.</p></div>
+    <div class="card"><h3>Open to every college</h3><p>Meet students from any college and city, not just your own campus.</p></div>
+    <div class="card"><h3>Shared and live</h3><p>Profiles, teams and hackathons update for everyone as soon as they are saved.</p></div>
+  </div></div></section>
+<section class="s"><div class="wrap"><h2>Explore technical skills</h2><p class="lead">Pick a skill to see the students who have it.</p>
+  <div class="chips" id="skillchips"></div></div></section>
+</div>
+
+<!-- FIND TEAMMATES -->
+<div id="p-teammates" hidden><section class="s"><div class="wrap">
+  <h2>Find teammates</h2><p class="lead">Search by name, skill, college, city or role.</p>
+  <input id="q" type="search" placeholder="Try “React”, “designer” or a college name" aria-label="Search students" style="max-width:480px;margin-bottom:22px">
+  <div class="grid3" id="studentlist"></div>
+</div></section></div>
+
+<!-- TEAMS -->
+<div id="p-teams" hidden><section class="s"><div class="wrap">
+  <h2>Explore teams</h2><p class="lead">Join a team with open spots, or create your own. Suggested teammates are scored by how many of the team’s needs they cover.</p>
+  <div class="card" style="margin-bottom:28px"><h3>Create a team</h3>
+    <div class="fgrid" style="margin-top:12px">
+      <div><label for="tname">Team name</label><input id="tname" maxlength="60"></div>
+      <div><label for="thack">Hackathon</label><input id="thack" maxlength="80"></div>
+      <div><label for="tsize">Team size (2–10)</label><input id="tsize" type="number" min="2" max="10" value="4"></div>
+      <div><label for="tneeds">Needed skills or roles (comma separated)</label><input id="tneeds" placeholder="React, UI/UX Design"></div>
+      <div class="full"><label for="tidea">Project idea</label><textarea id="tidea" rows="2" maxlength="400"></textarea></div>
+      <div class="full"><button class="btn p" id="mkteam">Create team</button></div>
+    </div></div>
+  <div class="grid2" id="teamlist"></div>
+</div></section></div>
+
+<!-- HACKATHONS -->
+<div id="p-hackathons" hidden><section class="s"><div class="wrap">
+  <h2>Hackathons</h2><p class="lead">Browse listed events or add one you know about.</p>
+  <div class="grid3" id="hacklist" style="margin-bottom:28px"></div>
+  <div class="card"><h3>Add a hackathon</h3>
+    <div class="fgrid" style="margin-top:12px">
+      <div><label for="htitle">Name</label><input id="htitle" maxlength="100"></div>
+      <div><label for="horg">Organizer</label><input id="horg" maxlength="100"></div>
+      <div><label for="hcat">Category</label><select id="hcat"><option>Artificial Intelligence</option><option>Machine Learning</option><option>Web Development</option><option>App Development</option><option>Cybersecurity</option><option>Robotics</option><option>Data Science</option><option selected>Open Innovation</option><option>Social Innovation</option></select></div>
+      <div><label for="hdead">Registration deadline</label><input id="hdead" type="date"></div>
+      <div><label for="hmode">Format</label><select id="hmode"><option>online</option><option>offline</option><option>hybrid</option></select></div>
+      <div><label for="hurl">Registration link</label><input id="hurl" type="url" placeholder="https://"></div>
+      <div class="full"><button class="btn p" id="mkhack">Add hackathon</button></div>
+    </div></div>
+</div></section></div>
+
+<!-- ABOUT -->
+<div id="p-about" hidden><section class="s"><div class="wrap" style="max-width:760px">
+  <h2>About HackMate</h2>
+  <p class="lead" style="max-width:none">Many students want to join hackathons but cannot find enough teammates. Some have strong skills and no team. Some teams are one person short. Others have an idea and need different skills to build it.</p>
+  <p class="lead" style="max-width:none">HackMate connects students across colleges and cities so that nobody misses a hackathon simply because they could not find a team. Don’t Build Alone. Build Together.</p>
+  <a class="btn p" href="#profile">Create your profile</a>
+</div></section></div>
+
+<!-- PROFILE -->
+<div id="p-profile" hidden><section class="s"><div class="wrap" style="max-width:760px">
+  <h2>My profile</h2><p class="lead">Your profile appears in Find Teammates for everyone who opens this site. You are signed in through claude.ai, so there is no separate password.</p>
+  <div class="card"><div class="fgrid">
+    <div><label for="pname">Full name</label><input id="pname" maxlength="80"></div>
+    <div><label for="pcollege">College</label><input id="pcollege" maxlength="100"></div>
+    <div><label for="pcity">City</label><input id="pcity" maxlength="60"></div>
+    <div><label for="prole">Preferred role</label><select id="prole"><option value="">Select a role</option><option>Frontend Developer</option><option>Backend Developer</option><option>Full-Stack Developer</option><option>AI/ML Developer</option><option>Data Scientist</option><option>Mobile App Developer</option><option>UI/UX Designer</option><option>Cybersecurity Specialist</option><option>Hardware/Robotics Engineer</option><option>Product Manager</option></select></div>
+    <div class="full"><label for="pskills">Skills (comma separated)</label><input id="pskills" placeholder="Python, React, Figma"></div>
+    <div class="full"><label for="pabout">About me</label><textarea id="pabout" rows="3" maxlength="500"></textarea></div>
+    <div class="full row" style="justify-content:flex-start"><button class="btn p" id="saveprof">Save profile</button><button class="btn" id="delprof" hidden>Remove my profile</button></div>
+  </div></div>
+</div></section></div>
+</main>
+
+<footer><div class="wrap row" style="flex-wrap:wrap"><span>© HackMate</span><span>Find Your Team. Build Your Idea. Win Together.</span></div></footer>
+<div id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function list(s){return String(s||"").split(",").map(function(x){return x.trim()}).filter(Boolean)}
+var routes=["home","teammates","teams","hackathons","about","profile"];
+var S={students:[],teams:[],joins:[],hacks:[],uid:null,db:null,ready:false,q:"",filled:false};
+var root=document.documentElement;
+
+function isDark(){var t=root.getAttribute("data-theme");if(t)return t==="dark";return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches}
+$("#theme").addEventListener("click",function(){root.setAttribute("data-theme",isDark()?"light":"dark")});
+
+var tt;function toast(m){var t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},3500)}
+function need(){if(!S.db||!S.uid){toast("Saving needs the claude.ai viewer. Open this page there to make changes.");return false}return true}
+
+/* ---- routing ---- */
+function route(){var h=location.hash.replace("#","");return routes.indexOf(h)>=0?h:"home"}
+function show(){var r=route();routes.forEach(function(n){$("#p-"+n).hidden=n!==r});
+  document.querySelectorAll("nav a.l").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+r)});
+  window.scrollTo(0,0);render()}
+window.addEventListener("hashchange",show);
+
+/* ---- data ---- */
+function sub(col,key){S.db.collection(col).onSnapshot(function(snap){
+  S[key]=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o});render();fillProfile()},function(){})}
+function start(){
+  if(!window.claude||!window.claude.use){S.ready=true;render();return}
+  Promise.all([claude.use("db"),claude.use("user")]).then(function(r){
+    S.ready=true;
+    if(!r[0]||!r[1]){S.db=null;render();return}
+    return r[1].id().then(function(id){S.db=r[0];S.uid=id;r[1].me().then(function(m){if(m&&m.name){$("#who").textContent="Signed in as "+m.name;$("#who").hidden=false;if(!$("#pname").value)$("#pname").value=m.name}}).catch(function(){});sub("students","students");sub("teams","teams");sub("joins","joins");sub("hackathons","hacks");render()});
+  }).catch(function(){S.ready=true;S.db=null;render()});
+}
+
+/* ---- matching (documented): score = share of the team's needs covered by a student's skills or role ---- */
+function covers(st,needs){var hay=(list(st.skills).concat([st.role||""])).join(" ").toLowerCase();
+  return needs.filter(function(n){return hay.indexOf(n.toLowerCase())>=0})}
+function score(st,needs){return needs.length?Math.round(covers(st,needs).length/needs.length*100):0}
+
+/* ---- render ---- */
+function render(){
+  var b=$("#banner");
+  if(S.ready&&!S.db){b.hidden=false;b.textContent="Preview mode: profiles, teams and hackathons are saved and shared only when this page is opened in the claude.ai viewer."}else{b.hidden=true}
+  renderSkills();renderStudents();renderTeams();renderHacks();
+  $("#delprof").hidden=!S.students.some(function(s){return s.id===S.uid});
+}
+function renderSkills(){
+  var seen={},all=[];S.students.forEach(function(s){list(s.skills).forEach(function(k){var l=k.toLowerCase();if(!seen[l]){seen[l]=1;all.push(k)}})});
+  var base=["Python","JavaScript","React","Node.js","Machine Learning","UI/UX Design","Flutter","Cybersecurity"];
+  var shown=(all.length?all:base).slice(0,24);
+  $("#skillchips").innerHTML=shown.map(function(k){return '<button class="chip" data-skill="'+esc(k)+'">'+esc(k)+'</button>'}).join("");
+}
+function studentCard(s,extra){
+  return '<div class="card"><h3>'+esc(s.name||"Unnamed")+(s.id===S.uid?' <span class="chip">You</span>':'')+'</h3>'+
+  '<p class="meta">'+esc(s.role||"Looking for a team")+'</p><p class="meta">'+esc([s.college,s.city].filter(Boolean).join(", "))+'</p>'+
+  (s.about?'<p class="meta" style="margin-top:8px">'+esc(s.about)+'</p>':'')+
+  '<div class="chips">'+list(s.skills).map(function(k){return '<span class="chip">'+esc(k)+'</span>'}).join("")+'</div>'+(extra||"")+'</div>';
+}
+function renderStudents(){
+  var q=S.q.toLowerCase(),box=$("#studentlist");
+  var rows=S.students.filter(function(s){return !q||[s.name,s.college,s.city,s.role,s.skills].join(" ").toLowerCase().indexOf(q)>=0});
+  box.innerHTML=rows.length?rows.map(function(s){return studentCard(s)}).join(""):
+    '<div class="empty" style="grid-column:1/-1">'+(S.students.length?"No students match that search.":"No students have created a profile yet. Be the first on the My Profile page.")+'</div>';
+}
+function renderTeams(){
+  var box=$("#teamlist");
+  if(!S.teams.length){box.innerHTML='<div class="empty" style="grid-column:1/-1">No teams yet. Create the first one above.</div>';return}
+  box.innerHTML=S.teams.map(function(t){
+    var js=S.joins.filter(function(j){return j.teamId===t.id}),members=1+js.length,open=Math.max(0,(t.size||4)-members);
+    var mine=t.leaderId===S.uid,joined=js.some(function(j){return j.uid===S.uid});
+    var needs=list((t.needs||[]).join?t.needs.join(","):t.needs);
+    var pct=Math.round(members/(t.size||4)*100);
+    var sug=S.students.filter(function(s){return s.id!==t.leaderId&&!js.some(function(j){return j.uid===s.id})})
+      .map(function(s){return {s:s,p:score(s,needs),c:covers(s,needs)}}).filter(function(x){return x.p>0}).sort(function(a,b){return b.p-a.p}).slice(0,2);
+    var btn=mine?'<button class="btn sm" data-delteam="'+esc(t.id)+'">Delete team</button>':joined?'<button class="btn sm" data-leave="'+esc(t.id)+'">Leave team</button>':open>0?'<button class="btn p sm" data-join="'+esc(t.id)+'">Join team</button>':'<span class="chip">Team full</span>';
+    return '<div class="card"><div class="row"><h3>'+esc(t.name)+'</h3><span class="chip">'+members+' of '+esc(t.size||4)+' · '+open+' open</span></div>'+
+      '<p class="meta">'+esc(t.hackathon||"Hackathon not set")+'</p>'+(t.idea?'<p style="margin-top:8px">'+esc(t.idea)+'</p>':'')+
+      '<div class="bar2" role="img" aria-label="Team '+pct+' percent complete"><span style="width:'+pct+'%"></span></div>'+
+      '<p class="meta">Needs:</p><div class="chips" style="margin-top:4px">'+(needs.length?needs.map(function(n){return '<span class="chip">'+esc(n)+'</span>'}).join(""):'<span class="meta">Nothing listed</span>')+'</div>'+
+      (sug.length?'<div class="sug"><strong>Suggested teammates</strong>'+sug.map(function(x){return '<div>'+esc(x.s.name)+' · '+x.p+'% match (covers '+esc(x.c.join(", "))+')</div>'}).join("")+'</div>':'')+
+      '<div style="margin-top:14px">'+btn+'</div></div>';
+  }).join("");
+}
+function renderHacks(){
+  var box=$("#hacklist");
+  if(!S.hacks.length){box.innerHTML='<div class="empty" style="grid-column:1/-1">No hackathons are listed yet. Add the first one below.</div>';return}
+  var rows=S.hacks.slice().sort(function(a,b){return String(a.deadline||"9999").localeCompare(String(b.deadline||"9999"))});
+  box.innerHTML=rows.map(function(h){
+    var ok=/^https?:\/\//i.test(h.url||"");
+    return '<div class="card"><span class="chip">'+esc(h.category)+'</span><h3 style="margin-top:10px">'+esc(h.title)+'</h3><p class="meta">'+esc(h.organizer||"")+'</p>'+
+    '<p class="meta">Register by <strong>'+esc(h.deadline||"to be announced")+'</strong> · '+esc(h.mode)+'</p>'+
+    '<div class="row" style="margin-top:12px;justify-content:flex-start">'+(ok?'<a class="btn p sm" href="'+esc(h.url)+'" target="_blank" rel="noopener noreferrer">Register</a>':'')+
+    (h.by===S.uid?'<button class="btn sm" data-delhack="'+esc(h.id)+'">Remove</button>':'')+'</div></div>';
+  }).join("");
+}
+function fillProfile(){
+  if(S.filled||!S.uid)return;
+  var me=S.students.filter(function(s){return s.id===S.uid})[0];
+  if(!me)return;S.filled=true;
+  $("#pname").value=me.name||"";$("#pcollege").value=me.college||"";$("#pcity").value=me.city||"";
+  $("#prole").value=me.role||"";$("#pskills").value=me.skills||"";$("#pabout").value=me.about||"";
+}
+
+/* ---- actions ---- */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-skill],[data-join],[data-leave],[data-delteam],[data-delhack]");if(!t)return;
+  if(t.dataset.skill){S.q=t.dataset.skill;$("#q").value=S.q;location.hash="#teammates";return}
+  if(!need())return;
+  if(t.dataset.join){
+    if(!S.students.some(function(s){return s.id===S.uid})){toast("Create your profile first.");location.hash="#profile";return}
+    var id=t.dataset.join;S.db.collection("joins").doc(id+"_"+S.uid).set({teamId:id,uid:S.uid,at:Date.now()}).then(function(){toast("You joined the team.")}).catch(function(){toast("Could not join. Try again.")});
+  }else if(t.dataset.leave){
+    S.db.collection("joins").doc(t.dataset.leave+"_"+S.uid).delete().then(function(){toast("You left the team.")}).catch(function(){toast("Could not leave. Try again.")});
+  }else if(t.dataset.delteam){
+    S.db.collection("teams").doc(t.dataset.delteam).delete().then(function(){toast("Team deleted.")}).catch(function(){toast("Could not delete.")});
+  }else if(t.dataset.delhack){
+    S.db.collection("hackathons").doc(t.dataset.delhack).delete().then(function(){toast("Hackathon removed.")}).catch(function(){toast("Could not remove.")});
+  }
+});
+$("#q").addEventListener("input",function(e){S.q=e.target.value;renderStudents()});
+
+$("#saveprof").addEventListener("click",function(){
+  var name=$("#pname").value.trim();if(!name){toast("Please enter your name.");return}
+  if(!need())return;
+  S.db.collection("students").doc(S.uid).set({name:name,college:$("#pcollege").value.trim(),city:$("#pcity").value.trim(),role:$("#prole").value,skills:list($("#pskills").value).join(", "),about:$("#pabout").value.trim(),updated:Date.now()})
+   .then(function(){toast("Profile saved.")}).catch(function(){toast("Could not save your profile.")});
+});
+$("#delprof").addEventListener("click",function(){
+  if(!need())return;S.filled=false;
+  S.db.collection("students").doc(S.uid).delete().then(function(){toast("Profile removed.")}).catch(function(){toast("Could not remove it.")});
+});
+$("#mkteam").addEventListener("click",function(){
+  var name=$("#tname").value.trim();if(!name){toast("Please enter a team name.");return}
+  if(!need())return;
+  var size=Math.min(10,Math.max(2,parseInt($("#tsize").value,10)||4));
+  S.db.collection("teams").add({name:name,hackathon:$("#thack").value.trim(),idea:$("#tidea").value.trim(),size:size,needs:list($("#tneeds").value),leaderId:S.uid,at:Date.now()})
+   .then(function(){toast("Team created.");$("#tname").value="";$("#thack").value="";$("#tidea").value="";$("#tneeds").value=""}).catch(function(){toast("Could not create the team.")});
+});
+$("#mkhack").addEventListener("click",function(){
+  var title=$("#htitle").value.trim();if(!title){toast("Please enter the hackathon name.");return}
+  if(!need())return;
+  S.db.collection("hackathons").add({title:title,organizer:$("#horg").value.trim(),category:$("#hcat").value,deadline:$("#hdead").value,mode:$("#hmode").value,url:$("#hurl").value.trim(),by:S.uid,at:Date.now()})
+   .then(function(){toast("Hackathon added.");$("#htitle").value="";$("#horg").value="";$("#hurl").value=""}).catch(function(){toast("Could not add it.")});
+});
+
+/* ---- binary rain behind the hero ---- */
+var cv=$("#bin"),hero=cv.parentNode,ctx=cv.getContext("2d"),size=18,trail=16,cols=0,drops=[],chars=[],w=0,h=0,last=0;
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function bit(){return Math.random()<0.5?"0":"1"}
+function setup(){var dpr=window.devicePixelRatio||1;w=hero.clientWidth;h=hero.clientHeight;if(!w||!h)return;
+  cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);cols=Math.ceil(w/size);drops=[];chars=[];
+  for(var i=0;i<cols;i++){drops.push(Math.floor(Math.random()*(h/size+trail))-trail);var a=[];for(var k=0;k<trail;k++)a.push(bit());chars.push(a)}}
+function draw(){ctx.clearRect(0,0,w,h);ctx.font=(size-4)+"px ui-monospace,Menlo,Consolas,monospace";ctx.textBaseline="top";
+  var d=isDark(),rgb=d?"34,211,238":"124,58,237",max=d?0.32:0.22;
+  for(var i=0;i<cols;i++)for(var k=0;k<trail;k++){var y=(drops[i]-k)*size;if(y<-size||y>h)continue;
+    ctx.fillStyle="rgba("+rgb+","+(k===0?Math.min(1,max*2.2):(1-k/trail)*max)+")";ctx.fillText(chars[i][k],i*size,y)}}
+function step(){for(var i=0;i<cols;i++){if(Math.random()<0.35)continue;drops[i]++;chars[i].unshift(bit());chars[i].pop();if((drops[i]-trail)*size>h)drops[i]=-Math.floor(Math.random()*20)}}
+function loop(t){if(!$("#p-home").hidden&&t-last>70){last=t;step();draw()}requestAnimationFrame(loop)}
+setup();draw();
+if(window.ResizeObserver){new ResizeObserver(function(){setup();draw()}).observe(hero)}else{window.addEventListener("resize",function(){setup();draw()})}
+if(!reduce)requestAnimationFrame(loop);
+
+show();start();
+})();
+</script>
+</body>
+</html>
